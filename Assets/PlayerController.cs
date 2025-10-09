@@ -4,9 +4,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rigidBody;
-    public float speed = 5.0f;
-    public float jumpForce = 8.0f;
-    public float airControlForce = 10.0f;
+    public float speed = 2.0f;
+    public float jumpForce = 1.0f;
+    public float airControlForce = 3.0f;
     public float airControlMax = 1.5f;
     public bool grounded;
     // Use this for initialization
@@ -46,5 +46,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+     
 }
