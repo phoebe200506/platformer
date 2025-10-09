@@ -25,11 +25,14 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         float h = Input.GetAxis("Horizontal");
         if ( h != 0.0f)
-        rigidBody.linearVelocity = new Vector2(h * speed, 0.0f);
+        {
+            rigidBody.linearVelocity = new Vector2(h * speed, 0.0f);
+        }
+        
     }
     
 }
