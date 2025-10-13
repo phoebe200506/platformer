@@ -6,10 +6,10 @@ public class PlayerController : MonoBehaviour
 {
 
     Rigidbody2D rigidBody;
-    public float speed = 5.0f;
-    public float jumpForce = 1.0f;
+    public float speed = 10.0f;
+    public float jumpForce = 10.0f;
     public float airControlForce = 5.0f;
-    public float airControlMax = 1.5f;
+    public float airControlMax = 5f;
     public bool grounded;
 
 
@@ -35,7 +35,12 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxis("Jump") > 0.0f)
                 rigidBody.AddForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
             else
-                rigidBody.linearVelocity = new Vector2(speed * h, rigidBody.linearVelocityY);
+            {
+                // allow a small amount of movement in the air
+                float vx = rigidBody.linearVelocityX;
+                if (h * vx < airControlMax)
+                    rigidBody.AddForce(new Vector2(h * airControlForce, 0));
+            }
         }
     }
 
