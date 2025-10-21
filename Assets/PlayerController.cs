@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    Animator animator;
     Rigidbody2D rigidBody;
     public float speed = 10.0f;
     public float jumpForce = 10.0f;
@@ -17,15 +17,19 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (rigidBody.linearVelocity.x * transform.localScale.x < 0.0f)
             transform.localScale = new Vector3(-transform.localScale.x,
             transform.localScale.y, transform.localScale.z);
+        float xSpeed = Mathf.Abs(rigidBody.linearVelocity.x);
+        animator.SetFloat("xspeed", xSpeed);
     }
 
     void FixedUpdate()
