@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
             transform.localScale.y, transform.localScale.z);
         float xSpeed = Mathf.Abs(rigidBody.linearVelocity.x);
         animator.SetFloat("xspeed", xSpeed);
+        float ySpeed = Mathf.Abs(rigidBody.linearVelocity.y);
+        animator.SetFloat("yspeed", ySpeed);
     }
 
     void FixedUpdate()
