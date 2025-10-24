@@ -23,7 +23,11 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+
     {
+        float blinkVal = Random.Range(0.0f, 200.0f);
+        if (blinkVal < 1.0f)
+            animator.SetTrigger("blinktrigger");
 
         if (rigidBody.linearVelocity.x * transform.localScale.x < 0.0f)
             transform.localScale = new Vector3(-transform.localScale.x,
