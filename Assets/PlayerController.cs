@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float airControlForce = 5.0f;
     public float airControlMax = 5f;
     public bool grounded;
+    public AudioSource coinSound;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,9 +26,7 @@ public class PlayerController : MonoBehaviour
     void Update()
 
     {
-        float blinkVal = Random.Range(0.0f, 200.0f);
-        if (blinkVal < 1.0f)
-            animator.SetTrigger("blinktrigger");
+
 
         if (rigidBody.linearVelocity.x * transform.localScale.x < 0.0f)
             transform.localScale = new Vector3(-transform.localScale.x,
@@ -36,8 +35,19 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("xspeed", xSpeed);
         float ySpeed = Mathf.Abs(rigidBody.linearVelocity.y);
         animator.SetFloat("yspeed", ySpeed);
-    }
 
+        float blinkVal = Random.Range(0.0f, 200.0f);
+        if (blinkVal < 1.0f)
+            animator.SetTrigger("blinktrigger");
+    }
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "Coin")
+        {
+            Destroy(coll.gameObject);
+            coinSound.Play();
+        }
+    }
     void FixedUpdate()
     {
         float h = Input.GetAxis("Horizontal");
@@ -72,7 +82,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-     
+
 }
  
     
