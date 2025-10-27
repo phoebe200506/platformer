@@ -29,8 +29,9 @@ public class PlayerController : MonoBehaviour
 
 
         if (rigidBody.linearVelocity.x * transform.localScale.x < 0.0f)
-            transform.localScale = new Vector3(-transform.localScale.x,
-            transform.localScale.y, transform.localScale.z);
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
         float xSpeed = Mathf.Abs(rigidBody.linearVelocity.x);
         animator.SetFloat("xspeed", xSpeed);
         float ySpeed = Mathf.Abs(rigidBody.linearVelocity.y);
@@ -69,14 +70,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 3)
+        if (collision.gameObject.layer == 3 && rigidBody.linearVelocity.y < 0.01)
         {
             grounded = true;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 3)
+        if (collision.gameObject.layer == 3 )
         {
             grounded = false;
         }
