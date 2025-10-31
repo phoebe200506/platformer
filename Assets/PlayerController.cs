@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public float airControlMax = 5f;
     public bool grounded;
     public AudioSource coinSound;
+    public TextMeshProUGUI uiText;
+    int totalCoins;
+    int coinsCollected;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,6 +25,9 @@ public class PlayerController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        coinsCollected = 0;
+        totalCoins = GameObject.FindGameObjectsWithTag("Coin").Length;
+
 
     }
 
@@ -26,6 +35,8 @@ public class PlayerController : MonoBehaviour
     void Update()
 
     {
+        string uiString = "x " + coinsCollected + "/" + totalCoins;
+        uiText.text = uiString;
 
 
         if (rigidBody.linearVelocity.x * transform.localScale.x < 0.0f)
@@ -47,6 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(coll.gameObject);
             coinSound.Play();
+            coinsCollected++;
         }
     }
     void FixedUpdate()
@@ -74,6 +86,10 @@ public class PlayerController : MonoBehaviour
         {
             grounded = true;
         }
+        if (collision.gameObject.tag == "Death")
+        {
+            SceneManager.LoadScene(0);
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -82,7 +98,6 @@ public class PlayerController : MonoBehaviour
             grounded = false;
         }
     }
-
 
 }
  
